@@ -1,0 +1,311 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import BlogCard from '../components/BlogCard.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { getCollection } from 'astro:content';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const [featured, ...rest] = posts;
+---
+
+<!doctype html>
+<html lang='uz'>
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <section
+        class='relative flex h-[70vh] min-h-[500px] items-center justify-center overflow-hidden'
+      >
+        <img
+          src='/images/hero-blog.jpg'
+          alt='Bizness Kundalik blog'
+          class='absolute inset-0 h-full w-full object-cover'
+        />
+        <div class='absolute inset-0 bg-[#221c16]/60'></div>
+        <div
+          class='relative z-10 mx-auto w-full max-w-[1120px] px-4 text-center'
+        >
+          <h1 class='text-5xl font-bold text-[#fffaf4] md:text-7xl'>
+            Bizness Kundalik
+          </h1>
+          <p
+            class='mx-auto mt-4 max-w-3xl text-lg leading-relaxed text-[#fffaf4]/85 md:text-xl'
+          >
+            Tadbirkorlar uchun kundalik — biznes dunyosida muvaffaqiyatga
+            erishish yo'lida bilim va tajriba
+          </p>
+          <div class='mx-auto mt-8 h-0.5 w-16 bg-[#e78722]'></div>
+        </div>
+      </section>
+
+      <section class='mx-auto w-full max-w-[1120px] px-4 py-20'>
+        <div
+          class='mb-4 text-xs font-bold uppercase tracking-[0.14em] text-[#e78722]'
+        >
+          Tanlangan maqola
+        </div>
+        {
+          featured ? (
+            <BlogCard post={featured} featured />
+          ) : (
+            <p class='text-[#6f6458]'>Hozircha maqolalar topilmadi.</p>
+          )
+        }
+      </section>
+
+      <div class='mx-auto w-full max-w-[1120px] border-t border-[#e3d8c6] px-4'>
+      </div>
+
+      <section id='categories' class='mx-auto w-full max-w-[1120px] px-4 py-20'>
+        <div
+          class='text-xs font-bold uppercase tracking-[0.14em] text-[#e78722]'
+        >
+          Barcha maqolalar
+        </div>
+        <h2 class='mb-8 mt-2 text-4xl font-bold text-[#2d251f]'>
+          So'nggi nashrlar
+        </h2>
+        <div class='grid gap-10 md:grid-cols-2 lg:grid-cols-3'>
+          {rest.map((post) => <BlogCard post={post} />)}
+        </div>
+      </section>
+
+      <section id='about' class='bg-[#f3ede1] py-20'>
+        <div class='mx-auto w-full max-w-[900px] px-4'>
+          <div
+            class='text-xs font-bold uppercase tracking-[0.14em] text-[#e78722]'
+          >
+            Biz haqimizda
+          </div>
+          <h2 class='mt-2 text-4xl font-bold text-[#2d251f]'>
+            BiznessKundalik — Tadbirkorlar platformasi
+          </h2>
+        </div>
+        <div
+          class='mx-auto mt-8 w-full max-w-[900px] space-y-6 px-4 leading-relaxed text-[#6f6458]'
+        >
+          <p>
+            <strong class='text-[#2d251f]'>BiznessKundalik</strong> — bu O'zbekistondagi
+            tadbirkorlar, startap asoschilari va biznes egalari uchun maxsus yaratilgan
+            bilim almashish platformasidir. Biz 2024-yilda tashkil topgan bo'lib,
+            maqsadimiz mahalliy biznes hamjamiyatini bilim, tajriba va ilhom bilan
+            ta'minlashdir.
+          </p>
+          <p>
+            Platformamizda siz biznes strategiyalari, moliyaviy boshqaruv,
+            marketing usullari, startap rivojlantirish va boshqa ko'plab
+            mavzularda foydali maqolalar topishingiz mumkin. Har bir maqola
+            tajribali mutaxassislar tomonidan tayyorlanadi va amaliy maslahatlar
+            bilan boyitiladi.
+          </p>
+          <p>
+            Biz ishonchli va sifatli kontent yaratishga, O'zbek tilidagi biznes
+            adabiyotlar bo'shliqini to'ldirishga va yangi avlod tadbirkorlarini
+            qo'llab-quvvatlashga intilamiz. Jamoamiz tajribali
+            biznes-maslahatchilari, moliyachilar va marketing mutaxassislaridan
+            tashkil topgan.
+          </p>
+          <div class='grid gap-8 pt-8 md:grid-cols-3'>
+            <div class='space-y-2 text-center'>
+              <p class='text-4xl font-bold text-[#e78722]'>100+</p>
+              <p class='text-sm text-[#6f6458]'>Foydali maqolalar</p>
+            </div>
+            <div class='space-y-2 text-center'>
+              <p class='text-4xl font-bold text-[#e78722]'>5000+</p>
+              <p class='text-sm text-[#6f6458]'>Faol o'quvchilar</p>
+            </div>
+            <div class='space-y-2 text-center'>
+              <p class='text-4xl font-bold text-[#e78722]'>20+</p>
+              <p class='text-sm text-[#6f6458]'>Mutaxassis mualliflar</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id='contact' class='py-20'>
+        <div class='mx-auto w-full max-w-[760px] px-4'>
+          <div class='mb-8 text-center'>
+            <div
+              class='text-xs font-bold uppercase tracking-[0.14em] text-[#e78722]'
+            >
+              Aloqa
+            </div>
+            <h3 class='mt-2 text-3xl font-bold text-[#2d251f]'>
+              Biz bilan bog'laning
+            </h3>
+            <p class='mt-3 text-[#6f6458]'>
+              Savollaringiz yoki takliflaringiz bo'lsa, quyidagi formani
+              to'ldiring.
+            </p>
+          </div>
+          <form id='contact-form' class='space-y-5 rounded-xl p-6'>
+            <div class='space-y-2'>
+              <label for='fio' class='text-sm font-medium text-[#2d251f]'
+                >F.I.O</label
+              >
+              <input
+                id='fio'
+                type='text'
+                name='fio'
+                placeholder='Ismingiz va familiyangiz'
+                class='w-full rounded-lg border border-[#e3d8c6] px-4 py-3 text-sm outline-none ring-[#e78722]/30 focus:ring-2'
+              />
+            </div>
+            <div class='space-y-2'>
+              <label for='tel' class='text-sm font-medium text-[#2d251f]'
+                >Telefon raqami</label
+              >
+              <input
+                id='tel'
+                type='tel'
+                name='tel'
+                placeholder='+998 90 123 45 67'
+                class='w-full rounded-lg border border-[#e3d8c6] px-4 py-3 text-sm outline-none ring-[#e78722]/30 focus:ring-2'
+              />
+            </div>
+            <div class='space-y-2'>
+              <label for='email' class='text-sm font-medium text-[#2d251f]'
+                >Elektron pochta</label
+              >
+              <input
+                id='email'
+                type='email'
+                name='email'
+                placeholder='email@misol.uz'
+                class='w-full rounded-lg border border-[#e3d8c6] px-4 py-3 text-sm outline-none ring-[#e78722]/30 focus:ring-2'
+              />
+            </div>
+            <div class='space-y-2'>
+              <label for='desc' class='text-sm font-medium text-[#2d251f]'
+                >Xabar matni</label
+              >
+              <textarea
+                id='desc'
+                name='desc'
+                placeholder='Xabaringizni yozing...'
+                rows='4'
+                class='w-full rounded-lg border border-[#e3d8c6] px-4 py-3 text-sm outline-none ring-[#e78722]/30 focus:ring-2'
+              ></textarea>
+            </div>
+            <button
+              type='submit'
+              id='contact-submit'
+              class='w-full rounded-lg cursor-pointer bg-[#e78722] px-6 py-3 text-sm font-semibold text-[#fffaf4]'
+            >
+              Yuborish
+            </button>
+          </form>
+        </div>
+      </section>
+    </main>
+    <Footer />
+    <div
+      id='toast'
+      class='pointer-events-none fixed bottom-5 right-5 z-50 hidden max-w-sm rounded-lg px-4 py-3 text-sm font-medium text-white shadow-lg'
+      role='status'
+      aria-live='polite'
+    >
+    </div>
+    <script>
+      const form = document.getElementById('contact-form');
+      const toast = document.getElementById('toast');
+
+      const showToast = (message: string, type: 'success' | 'error') => {
+        if (!(toast instanceof HTMLDivElement)) return;
+        toast.textContent = message;
+        toast.classList.remove('hidden', 'bg-red-500', 'bg-emerald-600');
+        toast.classList.add(
+          type === 'success' ? 'bg-emerald-600' : 'bg-red-500',
+        );
+
+        window.setTimeout(() => {
+          toast.classList.add('hidden');
+        }, 2600);
+      };
+
+      if (form instanceof HTMLFormElement) {
+        const submitButton = document.getElementById('contact-submit');
+        const initialButtonText =
+          submitButton instanceof HTMLButtonElement
+            ? submitButton.textContent || 'Yuborish'
+            : 'Yuborish';
+
+        const setSubmitting = (isSubmitting: boolean) => {
+          if (submitButton instanceof HTMLButtonElement) {
+            submitButton.disabled = isSubmitting;
+            submitButton.textContent = isSubmitting
+              ? 'Yuborilmoqda...'
+              : initialButtonText;
+            submitButton.classList.toggle('opacity-60', isSubmitting);
+            submitButton.classList.toggle('cursor-not-allowed', isSubmitting);
+          }
+        };
+
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const formData = new FormData(form);
+          const fio = String(formData.get('fio') || '').trim();
+          const tel = String(formData.get('tel') || '').trim();
+          const email = String(formData.get('email') || '').trim();
+          const desc = String(formData.get('desc') || '').trim();
+
+          if (!fio || !tel || !email || !desc) {
+            showToast("Xatolik: Barcha maydonlarni to'ldiring", 'error');
+            return;
+          }
+
+          setSubmitting(true);
+
+          const token = import.meta.env.PUBLIC_TELEGRAM_BOT_TOKEN;
+          const chatId = import.meta.env.PUBLIC_TELEGRAM_CHAT_ID;
+
+          if (!token || !chatId) {
+            showToast('Xatolik: Telegram sozlamalari topilmadi', 'error');
+            setSubmitting(false);
+            return;
+          }
+
+          const text =
+            `Yangi bog'lanish so'rovi:\n\n` +
+            `F.I.O: ${fio}\n` +
+            `Telefon: ${tel}\n` +
+            `Email: ${email}\n` +
+            `Xabar: ${desc}`;
+
+          fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              chat_id: chatId,
+              text,
+            }),
+          })
+            .then(async (res) => {
+              const data = await res.json().catch(() => ({}));
+              if (!res.ok || !data.ok) {
+                throw new Error("Yuborishda xatolik bo'ldi");
+              }
+              showToast(
+                "Yuborildi! Xabaringiz muvaffaqiyatli yuborildi. Tez orada bog'lanamiz.",
+                'success',
+              );
+              form.reset();
+            })
+            .catch((err) => {
+              showToast(`Xatolik: ${err.message}`, 'error');
+            })
+            .finally(() => {
+              setSubmitting(false);
+            });
+        });
+      }
+    </script>
+  </body>
+</html>

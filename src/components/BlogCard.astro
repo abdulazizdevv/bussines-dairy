@@ -1,0 +1,69 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  featured?: boolean;
+}
+
+const { post, featured = false } = Astro.props;
+const slug = post?.id;
+const postData = post?.data;
+---
+
+{
+  !post || !slug || !postData ? null : featured ? (
+    <a href={`/blog/${slug}`} class='group block'>
+      <article class='grid items-center gap-8 md:grid-cols-2'>
+        <div class='overflow-hidden rounded-lg'>
+          <img
+            src={postData.heroImage}
+            alt={postData.title}
+            class='h-[400px] w-full object-cover transition-transform duration-700 group-hover:scale-105'
+          />
+        </div>
+        <div class='space-y-4'>
+          <span class='inline-block text-xs font-semibold uppercase tracking-[0.14em] text-[#e78722]'>
+            {postData.category}
+          </span>
+          <h2 class='text-3xl leading-tight font-bold text-[#2d251f] transition-colors md:text-4xl group-hover:text-[#e78722]'>
+            {postData.title}
+          </h2>
+          <p class='text-lg leading-relaxed text-[#6f6458]'>
+            {postData.excerpt}
+          </p>
+          <div class='flex items-center gap-2 text-sm text-[#6f6458]'>
+            <span>{postData.pubDate.toISOString().slice(0, 10)}</span>
+            <span>·</span>
+            <span>{postData.readTime}</span>
+          </div>
+        </div>
+      </article>
+    </a>
+  ) : (
+    <a href={`/blog/${slug}`} class='group block'>
+      <article class='space-y-4'>
+        <div class='overflow-hidden rounded-lg'>
+          <img
+            src={postData.heroImage}
+            alt={postData.title}
+            class='h-56 w-full object-cover transition-transform duration-700 group-hover:scale-105'
+            loading='lazy'
+          />
+        </div>
+        <span class='inline-block text-xs font-semibold uppercase tracking-[0.14em] text-[#e78722]'>
+          {postData.category}
+        </span>
+        <h3 class='text-xl leading-snug font-bold text-[#2d251f] transition-colors group-hover:text-[#e78722]'>
+          {postData.title}
+        </h3>
+        <p class='text-sm leading-relaxed text-[#6f6458]'>{postData.excerpt}</p>
+        <div class='flex items-center gap-2 text-xs text-[#6f6458]'>
+          <span>{postData.pubDate.toISOString().slice(0, 10)}</span>
+          <span>·</span>
+          <span>{postData.readTime}</span>
+        </div>
+      </article>
+    </a>
+  )
+}
