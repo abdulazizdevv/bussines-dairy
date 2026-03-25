@@ -263,8 +263,8 @@ const [featured, ...rest] = posts;
 
           setSubmitting(true);
 
-          const token = import.meta.env.VITE_TELEGRAM_BOT_TOKEN;
-          const chatId = import.meta.env.VITE_TELEGRAM_CHAT_ID;
+          const token = import.meta.env.PUBLIC_TELEGRAM_BOT_TOKEN;
+          const chatId = import.meta.env.PUBLIC_TELEGRAM_CHAT_ID;
 
           if (!token || !chatId) {
             showToast('Xatolik: Telegram sozlamalari topilmadi', 'error');
