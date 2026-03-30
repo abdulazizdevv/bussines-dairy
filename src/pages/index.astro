@@ -9,7 +9,7 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
-const [featured, ...rest] = posts;
+const allPosts = posts;
 ---
 
 <!doctype html>
@@ -45,7 +45,7 @@ const [featured, ...rest] = posts;
         </div>
       </section>
 
-      <section class='mx-auto w-full max-w-[1120px] px-4 py-20'>
+      <!-- <section class='mx-auto w-full max-w-[1120px] px-4 py-20'>
         <div
           class='mb-4 text-xs font-bold uppercase tracking-[0.14em] text-[#e78722]'
         >
@@ -58,7 +58,7 @@ const [featured, ...rest] = posts;
             <p class='text-[#6f6458]'>Hozircha maqolalar topilmadi.</p>
           )
         }
-      </section>
+      </section> -->
 
       <div class='mx-auto w-full max-w-[1120px] border-t border-[#e3d8c6] px-4'>
       </div>
@@ -73,7 +73,7 @@ const [featured, ...rest] = posts;
           So'nggi nashrlar
         </h2>
         <div class='grid gap-10 md:grid-cols-2 lg:grid-cols-3'>
-          {rest.map((post) => <BlogCard post={post} />)}
+          {allPosts.map((post) => <BlogCard post={post} />)}
         </div>
       </section>
 
