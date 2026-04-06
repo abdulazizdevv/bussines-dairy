@@ -1,18 +1,18 @@
 ---
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
-import '../styles/global.css';
-import { SITE_TITLE } from '../consts';
+import "../styles/global.css"
+import { SITE_TITLE } from "../consts"
 
 interface Props {
-	title: string;
-	description: string;
-	image?: string;
+  title: string
+  description: string
+  image?: string
 }
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 
-const { title, description, image = '/images/hero-blog.jpg' } = Astro.props;
+const { title, description, image = "/images/hero-blog.jpg" } = Astro.props
 ---
 
 <!-- Global Metadata -->
@@ -22,16 +22,28 @@ const { title, description, image = '/images/hero-blog.jpg' } = Astro.props;
 <link rel="icon" href="/favicon.ico" />
 <link rel="sitemap" href="/sitemap-index.xml" />
 <link
-	rel="alternate"
-	type="application/rss+xml"
-	title={SITE_TITLE}
-	href={new URL('rss.xml', Astro.site)}
+  rel="alternate"
+  type="application/rss+xml"
+  title={SITE_TITLE}
+  href={new URL("rss.xml", Astro.site)}
 />
 <meta name="generator" content={Astro.generator} />
 
 <!-- Font preloads -->
-<link rel="preload" href="/fonts/atkinson-regular.woff" as="font" type="font/woff" crossorigin />
-<link rel="preload" href="/fonts/atkinson-bold.woff" as="font" type="font/woff" crossorigin />
+<link
+  rel="preload"
+  href="/fonts/atkinson-regular.woff"
+  as="font"
+  type="font/woff"
+  crossorigin
+/>
+<link
+  rel="preload"
+  href="/fonts/atkinson-bold.woff"
+  as="font"
+  type="font/woff"
+  crossorigin
+/>
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
@@ -40,6 +52,7 @@ const { title, description, image = '/images/hero-blog.jpg' } = Astro.props;
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
+<meta name="robots" content="index, follow" />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
@@ -54,3 +67,19 @@ const { title, description, image = '/images/hero-blog.jpg' } = Astro.props;
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
+
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+  ;(function (c, l, a, r, i, t, y) {
+    c[a] =
+      c[a] ||
+      function () {
+        ;(c[a].q = c[a].q || []).push(arguments)
+      }
+    t = l.createElement(r)
+    t.async = 1
+    t.src = "https://www.clarity.ms/tag/" + i
+    y = l.getElementsByTagName(r)[0]
+    y.parentNode.insertBefore(t, y)
+  })(window, document, "clarity", "script", "w7jyryrgv6")
+</script>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://biznesskundalik.uz/sitemap-index.xml
